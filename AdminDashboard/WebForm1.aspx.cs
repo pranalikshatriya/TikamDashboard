@@ -2,9 +2,11 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
+using System.Data;
 using System.Web.UI.WebControls;
+using System.Web.Services;
+
+
 
 namespace AdminDashboard
 {
@@ -23,6 +25,7 @@ namespace AdminDashboard
                     NpgsqlConnection connection = new NpgsqlConnection(connstring);
                     connection.Open();
 
+                    // load checkbox data
                     NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM biddingstatus", connection);
                     NpgsqlDataReader reader = command.ExecuteReader();
                     for (int i = 0; reader.Read(); i++)
@@ -36,20 +39,20 @@ namespace AdminDashboard
                     }
 
                     connection.Close();
-
+                    connstring = null; 
 
                 }
                 catch (Exception msg) { throw msg; }
 
             }
 
+            
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
             try
             {
-
                 string connstring = "Server=localhost; Port=5432; User Id=postgres; Password=Pranali123; Database=tikam; ";
                 NpgsqlConnection connection = new NpgsqlConnection(connstring);
                 connection.Open();
@@ -62,9 +65,51 @@ namespace AdminDashboard
                 }
 
                 connection.Close();
-
+                connstring = null;
             }
             catch (Exception msg) { throw msg; }
         }
+
+        [WebMethod]
+        public static ColumnChart getdata() {
+
+            DataTable dt = new Datos().getdata();
+            if (dt != null)
+            {
+                if (dt.Rows.Count > 0)
+                {
+
+                    List<SeriesItem> series = new List<SeriesItem>();
+                    for (int i = 1; i <= 30; i++)
+                    {
+                      series.Add(new SeriesItem() { name = "Slot " + i.ToString(), y = 50 });
+                        
+                    }
+
+
+                    foreach (DataRow dr in dt.Rows)
+                    {
+
+                        
+                        foreach (var item in series.FindAll(a => a.name == ("Slot " + dr[0].ToString())))
+                        {
+                            item.y = Int32.Parse(dr[1].ToString());
+                        }
+
+                        
+                    }      
+                            
+                       
+                   
+                    return new ColumnChart(series);
+
+                }
+                else { return null; }
+
+            }
+            else { return null;  }
+
+        }    
+
     }
 }

@@ -5,9 +5,11 @@ using System.Web;
 
 namespace AdminDashboard
 {
-    public class biddingstatus
+    public class SeriesItem
     {
-        public int slot { get; set; }
-        public bool biddingclosed { get; set; }
+       
+        public string name { get; set; }
+        public int y { get; set; }
+        
     }
 }
