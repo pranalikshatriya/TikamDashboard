@@ -99,6 +99,20 @@
             <asp:Button ID="Button1" Text="Disable Slots" OnClick="Button1_Click" runat="server"/>
         </div></td>
        <td width="1100"> <div id="container" margin-top: "1px;" style="width:900px; height:500px"></div></td>
+            <td> <asp:DataGrid ID="Grid1" runat="server" PageSize="30" AllowPaging="True" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None">  
+                    <Columns>  
+                        <asp:BoundColumn HeaderText="SLOT" DataField="slot"></asp:BoundColumn>  
+                        <asp:BoundColumn HeaderText="BID AMOUNT" DataField="bid"></asp:BoundColumn>  
+                        <asp:BoundColumn HeaderText="FIRST NAME" DataField="first_name"></asp:BoundColumn>  
+                        <asp:BoundColumn HeaderText="LAST NAME" DataField="last_name"></asp:BoundColumn>  
+                        
+                    </Columns>  
+                    <FooterStyle BackColor="#990000" Font-Bold="True" ForeColor="White" />  
+                    <SelectedItemStyle BackColor="#FFCC66" Font-Bold="True" ForeColor="Navy" />  
+                    <PagerStyle BackColor="#FFCC66" ForeColor="#333333" HorizontalAlign="Center" Mode="NumericPages" />
+                    <AlternatingItemStyle BackColor="White" />  
+                    <ItemStyle BackColor="#FFFBD6" ForeColor="#333333" />  
+                    <HeaderStyle BackColor="#990000" Font-Bold="True" ForeColor="White" /> </asp:DataGrid>  </td>
             </tr>
         </table>
     </form>

@@ -25,6 +25,16 @@ namespace AdminDashboard
                     NpgsqlConnection connection = new NpgsqlConnection(connstring);
                     connection.Open();
 
+                    // load grid data
+
+
+                    DataSet ds = new DataSet();
+                    NpgsqlDataAdapter da = new NpgsqlDataAdapter("SELECT * FROM displaydata ORDER BY slot ASC", connection);
+                    da.Fill(ds); 
+                    Grid1.DataSource = ds;
+                    Grid1.DataBind();
+
+
                     // load checkbox data
                     NpgsqlCommand command = new NpgsqlCommand("SELECT * FROM biddingstatus", connection);
                     NpgsqlDataReader reader = command.ExecuteReader();
